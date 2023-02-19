@@ -1,5 +1,5 @@
-import 'package:bardecoder/barcode.dart';
-import 'package:bardecoder/widgets/splash_screen.dart';
+import 'package:bardecoder/data/models/barcode.dart';
+import 'package:bardecoder/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

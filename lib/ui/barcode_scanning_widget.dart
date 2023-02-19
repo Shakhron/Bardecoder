@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class BarcodeScanningWidget extends StatefulWidget {
-  final content;
+  final String content;
   const BarcodeScanningWidget({super.key, required this.content});
 
   @override
@@ -22,6 +22,7 @@ class _BarcodeScanningWidgetState extends State<BarcodeScanningWidget> {
             IconButton(
                 onPressed: () async {
                   await Clipboard.setData(ClipboardData(text: widget.content));
+                  // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: const Text('Copy'),
                     duration: const Duration(seconds: 1),

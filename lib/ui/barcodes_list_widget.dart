@@ -1,3 +1,4 @@
+import 'package:bardecoder/bloc/barcode_genarate_bloc/barcode_generate_bloc.dart';
 import 'package:bardecoder/data/models/barcode.dart';
 import 'package:bardecoder/data/repositories/barcodes_repository.dart';
 import 'package:bardecoder/ui/barcode_generate_widget.dart';
@@ -5,6 +6,7 @@ import 'package:bardecoder/ui/barcode_scanning_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -35,24 +37,6 @@ class _BarcodesListWidgetState extends State<BarcodesListWidget> {
 
   PreferredSizeWidget appbar() {
     return AppBar(
-      leading: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.only(left: 5),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              )),
-          child: const Icon(
-            Icons.short_text,
-            color: Colors.black,
-            size: 31,
-          ),
-        ),
-      ),
       backgroundColor: Colors.transparent,
       elevation: 0,
     );
@@ -131,6 +115,7 @@ class _BarcodesListWidgetState extends State<BarcodesListWidget> {
               '#ff6666', 'Cancel', true, ScanMode.BARCODE);
           barcodeScanRes == '-1'
               ? null
+              // ignore: use_build_context_synchronously
               : Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -150,6 +135,7 @@ class _BarcodesListWidgetState extends State<BarcodesListWidget> {
   }
 }
 
+// ignore: must_be_immutable
 class CustomButtonWidget extends StatefulWidget {
   bool isFavorit;
   final int id;
@@ -177,8 +163,9 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => BarcodeGenerateWidget(
-                        name: widget.name,
+                  builder: (context) => BlocProvider(
+                        create: (context) => BarcodeGenerateBloc(widget.name),
+                        child: BarcodeGenerateWidget(),
                       )),
             );
           },
