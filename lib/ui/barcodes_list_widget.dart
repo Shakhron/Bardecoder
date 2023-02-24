@@ -91,6 +91,10 @@ class _BarcodesListWidgetState extends State<BarcodesListWidget> {
                     ),
                     itemBuilder: (BuildContext context, int index) {
                       var list = BarcodesRepository.box!.values.toList();
+                      BarcodesRepository.box!.listenable().addListener(() {
+                        setState(() {});
+                      });
+
                       return CustomButtonWidget(
                         id: list[index].id,
                         name: list[index].name,
